@@ -12,9 +12,12 @@ class JobHazardAnalysis(Base):
     job_title = Column(String)
     supervisor = Column(String)
     prepared_by = Column(String)
-    date = Column(Date)
+    date = Column(String)
+    required_training = Column(String) 
+    required_ppe = Column(String)
 
     steps = relationship("Step", back_populates="jha", cascade="all, delete-orphan")
+    signatures = relationship("Signature", back_populates="jha", cascade="all, delete-orphan")
 
 class Step(Base):
     __tablename__ = "steps"
@@ -41,3 +44,11 @@ class Control(Base):
     step_id = Column(Integer, ForeignKey("steps.id"))
     control = Column(Text)
     step = relationship("Step", back_populates="controls")
+
+class Signature(Base):
+    __tablename__ = "signatures"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    date = Column(String, nullable=True)
+    jha_id = Column(Integer, ForeignKey("JobHazardAnalysis.id"))
+    jha = relationship("JobHazardAnalysis", back_populates="signatures")

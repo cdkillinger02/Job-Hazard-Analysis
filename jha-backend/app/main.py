@@ -4,6 +4,7 @@ from app import models, schemas, crud
 from app.database import engine, SessionLocal
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException
+import json
 
 # Create tables
 models.Base.metadata.create_all(bind=engine)
@@ -28,8 +29,7 @@ def get_db():
 
 @app.post("/api/createNewAnalysis")
 def create_jha(jha_data: schemas.JHASchema, db: Session = Depends(get_db)):
-    jha = crud.create_jha(db, jha_data)
-    return {"message": "JHA created", "jha_id": jha.id}
+    crud.create_jha(db, jha_data)
 
 @app.get("/api/getAllAnalysis")
 def read_jhas(db: Session = Depends(get_db)):
@@ -55,7 +55,9 @@ def read_jhas(db: Session = Depends(get_db)):
             "supervisor": jha.supervisor,
             "preparedBy": jha.prepared_by,
             "date": jha.date,
-            "steps": steps_list
+            "steps": steps_list,
+            "requiredTraining": json.loads(jha.required_training or "[]"),
+            "requiredPPE": json.loads(jha.required_ppe or "[]"),
         })
     return result
 
@@ -75,7 +77,10 @@ def get_jha(jha_id: int, db: Session = Depends(get_db)):
         "job_title": jha.job_title,
         "supervisor": jha.supervisor,
         "prepared_by": jha.prepared_by,
-        "date": jha.date.isoformat() if jha.date else None,
+        "date": jha.date,
+        "requiredTraining": json.loads(jha.required_training or {}),
+        "requiredPPE": json.loads(jha.required_ppe or {}),
+        "signatures": jha.signatures,
         "steps": [
             {
                 "id": step.id,
@@ -94,10 +99,20 @@ def update_jha(jha_id: int, jha_data: dict, db: Session = Depends(get_db)):
     if not jha:
         raise HTTPException(status_code=404, detail="JHA not found")
     
-    # Update metadata
-    for field in ["location", "department", "activity", "building_room", "job_title", "supervisor", "prepared_by", "date"]:
-        if field in jha_data:
-            setattr(jha, field, jha_data[field])
+    for field in ["location", "department", "activity", "buildingRoom", "jobTitle", "supervisor", "preparedBy", "date", "requiredPPE", "requiredTraining"]:
+        if field == 'jobTitle':
+            setattr(jha, 'job_title', jha_data.get(field, ''))
+        elif field == 'buildingRoom':
+            setattr(jha, 'building_room', jha_data.get(field, ''))
+        elif field == 'preparedBy':
+            setattr(jha, 'prepared_by', jha_data.get(field, ''))
+        elif field == 'requiredPPE':
+            setattr(jha, 'required_ppe', json.dumps(jha_data.get(field, [])))
+        elif field == 'requiredTraining':
+            setattr(jha, 'required_training', json.dumps(jha_data.get(field, [])))
+        else:
+            if hasattr(jha, field):
+                setattr(jha, field, jha_data.get(field, ''))
 
     if "steps" in jha_data:
         for step in jha.steps:
@@ -109,14 +124,25 @@ def update_jha(jha_id: int, jha_data: dict, db: Session = Depends(get_db)):
                 step_order=step_data.get("step_order", 0),
                 photo=step_data.get("photo"),
             )
-            # Add hazards
             for hazard_text in step_data.get("hazards", []):
                 step.hazards.append(models.Hazard(hazard=hazard_text))
-            # Add controls
             for control_text in step_data.get("controls", []):
                 step.controls.append(models.Control(control=control_text))
 
-            jha.steps.append(step)        
+            jha.steps.append(step)  
+
+    if "signatures" in jha_data:
+        for sig in jha.signatures:
+            db.delete(sig)
+        db.commit()
+
+        for sig_data in jha_data["signatures"]:
+            sig = models.Signature(
+                name=sig_data.get("name", ""),
+                date=sig_data.get("date"),
+                jha_id=jha.id
+            )
+            db.add(sig)
 
     db.commit()
     db.refresh(jha)

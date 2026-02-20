@@ -48,7 +48,7 @@ Install dependencies:
 - Run command 'pip install -r requirements.txt'
   
 Start the development server using Uvicorn:
-- Run command 'uvicorn main:app --reload'
+- Run command 'python -m uvicorn app.main:app --reload'
   
 Open your browser and visit:
 - API will be accessible at http://localhost:8000

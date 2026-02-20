@@ -1,16 +1,20 @@
 from sqlalchemy.orm import Session
 from . import models
+import json
 
 def create_jha(db: Session, jha_data):
     jha = models.JobHazardAnalysis(
         location=jha_data.location,
         department=jha_data.department,
         activity=jha_data.activity,
-        building_room=jha_data.buildingRoom,
-        job_title=jha_data.jobTitle,
+        building_room=jha_data.building_room,
+        job_title=jha_data.job_title,
         supervisor=jha_data.supervisor,
-        prepared_by=jha_data.preparedBy,
-        date=jha_data.date
+        prepared_by=jha_data.prepared_by,
+        date=jha_data.date,
+        required_training=json.dumps(jha_data.required_training),  # <--- serialize
+        required_ppe=json.dumps(jha_data.required_ppe), 
+        signatures=[models.Signature(name=s.name, date=s.date) for s in jha_data.signatures]
     )
     db.add(jha)
     db.commit()

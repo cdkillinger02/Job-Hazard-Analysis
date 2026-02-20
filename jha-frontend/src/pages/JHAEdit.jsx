@@ -46,6 +46,9 @@ export default function JHAEdit(props) {
                     supervisor: data.supervisor,
                     preparedBy: data.prepared_by,
                     date: data.date,
+                    requiredTraining: data.requiredTraining,
+                    requiredPPE: data.requiredPPE,
+                    signatures: data.signatures
                 });
                 setSteps(
                     data.steps ? data.steps.map(step => ({
@@ -81,16 +84,22 @@ export default function JHAEdit(props) {
             location: metadata.location,
             department: metadata.department,
             activity: metadata.activity,
-            building_room: metadata.buildingRoom,
-            job_title: metadata.jobTitle,
+            buildingRoom: metadata.buildingRoom,   // ✅ camelCase
+            jobTitle: metadata.jobTitle,           // ✅ camelCase
             supervisor: metadata.supervisor,
-            prepared_by: metadata.preparedBy,
+            preparedBy: metadata.preparedBy,       // ✅ camelCase
             date: metadata.date || null,
             steps: steps.map(step => ({
                 task: step.task,
                 hazards: step.hazards.filter(h => h.trim() !== ""),
                 controls: step.controls.filter(c => c.trim() !== ""),
                 photo: step.photo ? step.photo.name : null,
+            })),
+            requiredTraining: metadata.requiredTraining.filter(t => t.trim() !== ""),
+            requiredPPE: metadata.requiredPPE.filter(p => p.trim() !== ""),
+            signatures: metadata.signatures.map(sig => ({
+                name: sig.name,
+                date: sig.date || null
             })),
         };
 
@@ -129,6 +138,7 @@ export default function JHAEdit(props) {
                 preparedBy: "",
                 date: "",
             });
+            props.setActiveStep(1);
             setSteps([]);
             navigate("/");
 
@@ -177,14 +187,14 @@ export default function JHAEdit(props) {
                                 } {props.activeStep == 2 &&
                                     <JobSteps steps={steps} setSteps={setSteps} />
                                 } {props.activeStep == 3 &&
-                                    <Certify />
+                                    <Certify metadata={metadata} setMetadata={setMetadata} />
                                 }
                             </div>
                         </div>
                         <footer>
                             {props.activeStep == 1 ?
                                 <button type="button" style={{ margin: '6px' }} onClick={() => navigate("/")}>Exit</button> :
-                                <button type="button" style={{ margin: '6px' }} onClick={() => props.setActiveStep(props.activeStep - 1)}>Pervious</button>}
+                                <button type="button" style={{ margin: '6px' }} onClick={() => props.setActiveStep(props.activeStep - 1)}>Previous</button>}
                             {props.activeStep == 2 && <button type="button" style={{ margin: '6px' }} onClick={addStep}>+ Add Step</button>}
                             {props.activeStep == 3 ?
                                 <button type="button" style={{ margin: '6px' }} onClick={handleSubmit}>Submit</button> :
