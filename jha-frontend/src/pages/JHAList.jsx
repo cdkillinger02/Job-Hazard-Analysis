@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function JHAList() {
   const [jhas, setJhas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(5); 
+  const [rowsPerPage] = useState(5);
 
   useEffect(() => {
     const fetchJHAs = async () => {
@@ -121,6 +121,9 @@ export default function JHAList() {
                   <td>
                     <Link to={`/jha/${jha.id}/edit`}>
                       <button style={{ marginRight: "10px" }}>Edit</button>
+                    </Link>
+                    <Link to={`/jha/${jha.id}/view`}>
+                      <button style={{ marginRight: "10px" }}>View</button>
                     </Link>
                     <button onClick={() => handleDelete(jha.id)} style={{ backgroundColor: "#eb8c8c", color: "#fff" }}>
                       Delete

@@ -80,12 +80,15 @@ export default function Certify(props) {
                             value={item}
                             onChange={(e) => handleTrainingChange(index, e.target.value)}
                             style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                            disabled={props.view}
                         />
                     ))}
-                    <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: "10px" }}>
-                        <button type="button" onClick={addTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>+ Add Training</button>
-                        <button type="button" onClick={removeTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>- Remove Training</button>
-                    </div>
+                    {!props.view &&
+                        <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: "10px" }}>
+                            <button type="button" onClick={addTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>+ Add Training</button>
+                            <button type="button" onClick={removeTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>- Remove Training</button>
+                        </div>
+                    }
                 </div>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
@@ -105,6 +108,7 @@ export default function Certify(props) {
                             value={ppe[field.name]}
                             onChange={handlePPEChange}
                             style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                            disabled={props.view}
                         />
                     ))}
                 </div>
@@ -127,6 +131,7 @@ export default function Certify(props) {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                        disabled={props.view}
                     />
                 </div>
                 <div>
@@ -136,6 +141,7 @@ export default function Certify(props) {
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                         style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                        disabled={props.view}
                     />
                 </div>
             </div>

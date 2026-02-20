@@ -40,6 +40,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                     <div>
@@ -54,6 +55,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                     <div>
@@ -68,6 +70,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                     <div>
@@ -82,6 +85,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                     <div>
@@ -96,6 +100,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                     <div>
@@ -110,6 +115,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                     <div>
@@ -124,6 +130,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                     <div>
@@ -137,6 +144,7 @@ export default function AnalysisInformation(props) {
                                 borderRadius: "6px",
                                 border: "1px solid #ccc",
                             }}
+                            disabled={props.view}
                         />
                     </div>
                 </div>

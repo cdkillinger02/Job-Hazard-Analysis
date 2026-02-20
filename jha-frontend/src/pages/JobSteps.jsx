@@ -51,7 +51,6 @@ export default function JobSteps(props) {
                     <tbody>
                         {props.steps.map((step, stepIndex) => (
                             <tr key={step.id}>
-                                {/* TASK */}
                                 <td>
                                     <textarea
                                         placeholder="Click to add task/step"
@@ -64,14 +63,16 @@ export default function JobSteps(props) {
                                             borderRadius: "6px",
                                             border: "1px solid #ccc",
                                         }}
+                                        disabled={props.view}
                                     />
                                     <br />
-                                    <button type="button" style={{ margin: '6px' }} onClick={() => removeStep(stepIndex)}>
-                                        Remove
-                                    </button>
+                                    {!props.view &&
+                                        <button type="button" style={{ margin: '6px' }} onClick={() => removeStep(stepIndex)}>
+                                            Remove
+                                        </button>
+                                    }
                                 </td>
 
-                                {/* HAZARDS */}
                                 <td>
                                     {step.hazards.map((hazard, hazardIndex) => (
                                         <textarea
@@ -91,25 +92,29 @@ export default function JobSteps(props) {
                                                 borderRadius: "6px",
                                                 border: "1px solid #ccc",
                                             }}
+                                            disabled={props.view}
                                         />
                                     ))}
-                                    <button
-                                        type="button"
-                                        style={{ margin: '6px' }}
-                                        onClick={() => addListItem(stepIndex, "hazards")}
-                                    >
-                                        +
-                                    </button>
-                                    <button
-                                        type="button"
-                                        style={{ margin: '6px' }}
-                                        onClick={() => removeListItem(stepIndex, "hazards")}
-                                    >
-                                        -
-                                    </button>
+                                    {!props.view &&
+                                        <>
+                                            <button
+                                                type="button"
+                                                style={{ margin: '6px' }}
+                                                onClick={() => addListItem(stepIndex, "hazards")}
+                                            >
+                                                +
+                                            </button>
+                                            <button
+                                                type="button"
+                                                style={{ margin: '6px' }}
+                                                onClick={() => removeListItem(stepIndex, "hazards")}
+                                            >
+                                                -
+                                            </button>
+                                        </>
+                                    }
                                 </td>
 
-                                {/* CONTROLS */}
                                 <td>
                                     {step.controls.map((control, controlIndex) => (
                                         <textarea
@@ -129,25 +134,29 @@ export default function JobSteps(props) {
                                                 borderRadius: "6px",
                                                 border: "1px solid #ccc",
                                             }}
+                                            disabled={props.view}
                                         />
                                     ))}
-                                    <button
-                                        type="button"
-                                        style={{ margin: '6px' }}
-                                        onClick={() => addListItem(stepIndex, "controls")}
-                                    >
-                                        +
-                                    </button>
-                                    <button
-                                        type="button"
-                                        style={{ margin: '6px' }}
-                                        onClick={() => removeListItem(stepIndex, "controls")}
-                                    >
-                                        -
-                                    </button>
+                                    {!props.view &&
+                                        <>
+                                            <button
+                                                type="button"
+                                                style={{ margin: '6px' }}
+                                                onClick={() => addListItem(stepIndex, "controls")}
+                                            >
+                                                +
+                                            </button>
+                                            <button
+                                                type="button"
+                                                style={{ margin: '6px' }}
+                                                onClick={() => removeListItem(stepIndex, "controls")}
+                                            >
+                                                -
+                                            </button>
+                                        </>
+                                    }
                                 </td>
 
-                                {/* PHOTO */}
                                 <td>
                                     <input
                                         type="file"
@@ -159,6 +168,7 @@ export default function JobSteps(props) {
                                             borderRadius: "6px",
                                             border: "1px solid #ccc",
                                         }}
+                                        disabled={props.view}
                                     />
                                 </td>
                             </tr>

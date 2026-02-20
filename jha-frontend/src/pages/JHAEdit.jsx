@@ -84,10 +84,10 @@ export default function JHAEdit(props) {
             location: metadata.location,
             department: metadata.department,
             activity: metadata.activity,
-            buildingRoom: metadata.buildingRoom,   // ✅ camelCase
-            jobTitle: metadata.jobTitle,           // ✅ camelCase
+            buildingRoom: metadata.buildingRoom,
+            jobTitle: metadata.jobTitle,
             supervisor: metadata.supervisor,
-            preparedBy: metadata.preparedBy,       // ✅ camelCase
+            preparedBy: metadata.preparedBy,
             date: metadata.date || null,
             steps: steps.map(step => ({
                 task: step.task,
@@ -183,11 +183,11 @@ export default function JHAEdit(props) {
                             </div>
                             <div style={{ width: '2/3' }}>
                                 {props.activeStep == 1 &&
-                                    <AnalysisInformation metadata={metadata} setMetadata={setMetadata} />
+                                    <AnalysisInformation metadata={metadata} setMetadata={setMetadata} view={false} />
                                 } {props.activeStep == 2 &&
-                                    <JobSteps steps={steps} setSteps={setSteps} />
+                                    <JobSteps steps={steps} setSteps={setSteps} view={false} />
                                 } {props.activeStep == 3 &&
-                                    <Certify metadata={metadata} setMetadata={setMetadata} />
+                                    <Certify metadata={metadata} setMetadata={setMetadata} view={false} />
                                 }
                             </div>
                         </div>
