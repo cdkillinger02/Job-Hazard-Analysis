@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import '../App.css'
 
 export default function Certify(props) {
     const [training, setTraining] = useState([""]);
@@ -124,7 +125,7 @@ export default function Certify(props) {
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", padding: "0 20px" }}>
                 <div>
-                    <label>Name</label>
+                    <label className="required">Name</label>
                     <input
                         type="text"
                         placeholder="Click to enter text"
@@ -135,7 +136,7 @@ export default function Certify(props) {
                     />
                 </div>
                 <div>
-                    <label>Date</label>
+                    <label className="required">Date</label>
                     <input
                         type="date"
                         value={date}

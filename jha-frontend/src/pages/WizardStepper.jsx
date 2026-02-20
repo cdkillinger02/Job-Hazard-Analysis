@@ -7,12 +7,6 @@ export default function WizardStepper({ activeStep, setActiveStep }) {
         { id: 3, name: "Certify & Submit" },
     ];
 
-    const handleStepClick = (step) => {
-        if (step.id <= activeStep) {
-            setActiveStep(step.id); // Navigate to clicked step if it's valid
-        }
-    };
-
     return (
         <div
                 style={{
@@ -28,12 +22,12 @@ export default function WizardStepper({ activeStep, setActiveStep }) {
             {steps.map((step) => (
                 <div
                     key={step.id}
-                    onClick={() => handleStepClick(step)}
+                    onClick={() => setActiveStep(step.id)}
                     style={{
                         display: "flex",
                         alignItems: "center",
-                        cursor: step.id <= activeStep ? "pointer" : "not-allowed",
-                        opacity: step.id <= activeStep ? 1 : 0.5,
+                        cursor: "pointer",
+                        opacity: 1,
                         marginBottom: "20px",
                     }}
                 >
@@ -42,7 +36,7 @@ export default function WizardStepper({ activeStep, setActiveStep }) {
                             width: "30px",
                             height: "30px",
                             borderRadius: "50%",
-                            backgroundColor: step.id <= activeStep ? "#2563eb" : "#ccc",
+                            backgroundColor: step.id == activeStep ? "#2563eb" : "#ccc",
                             color: "#fff",
                             display: "flex",
                             alignItems: "center",

@@ -11,6 +11,7 @@ export default function JHAEdit(props) {
     const navigate = useNavigate();
     const { id } = useParams();
     const [isLoading, setIsLoading] = useState(true);
+    const [requiredFields, setRequiredFields] = useState(false);
     const [metadata, setMetadata] = useState({
         location: "",
         department: "",
@@ -103,47 +104,53 @@ export default function JHAEdit(props) {
             })),
         };
 
-        try {
-            let res;
-            if (id) {
-                res = await fetch(`http://127.0.0.1:8000/api/updateExistingAnalysis/${id}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
+        if (metadata.location == '' || metadata.department == '' || metadata.activity == '' || metadata.buildingRoom == '' ||
+            metadata.jobTitle == '' || metadata.supervisor == '' || metadata.preparedBy == ''
+            || metadata.signatures[0].name == '' || metadata.signatures[0].date == '') {
+            if (!window.alert("There are required values missing from this analysis. Please return and complete all required values!")) return;
+        } else {
+
+            try {
+                let res;
+                if (id) {
+                    res = await fetch(`http://127.0.0.1:8000/api/updateExistingAnalysis/${id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                } else {
+                    res = await fetch("http://127.0.0.1:8000/api/createNewAnalysis", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                }
+
+                if (!res.ok) {
+                    const errText = await res.text();
+                    throw new Error(errText);
+                }
+
+                const data = await res.json();
+                console.log("JHA saved:", data);
+
+                setMetadata({
+                    location: "",
+                    department: "",
+                    activity: "",
+                    buildingRoom: "",
+                    jobTitle: "",
+                    supervisor: "",
+                    preparedBy: "",
+                    date: "",
                 });
-            } else {
-                res = await fetch("http://127.0.0.1:8000/api/createNewAnalysis", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
+                props.setActiveStep(1);
+                setSteps([]);
+                navigate("/");
+
+            } catch (err) {
+                console.error("Error saving JHA:", err);
             }
-
-            if (!res.ok) {
-                const errText = await res.text();
-                throw new Error(errText);
-            }
-
-            const data = await res.json();
-            console.log("JHA saved:", data);
-
-            // Clear form
-            setMetadata({
-                location: "",
-                department: "",
-                activity: "",
-                buildingRoom: "",
-                jobTitle: "",
-                supervisor: "",
-                preparedBy: "",
-                date: "",
-            });
-            props.setActiveStep(1);
-            setSteps([]);
-            navigate("/");
-
-        } catch (err) {
-            console.error("Error saving JHA:", err);
         }
     };
 

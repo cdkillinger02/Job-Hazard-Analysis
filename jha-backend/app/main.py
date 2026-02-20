@@ -122,7 +122,7 @@ def update_jha(jha_id: int, jha_data: dict, db: Session = Depends(get_db)):
             step = models.Step(
                 task=step_data.get("task"),
                 step_order=step_data.get("step_order", 0),
-                photo=step_data.get("photo"),
+                photo=json.dumps(step_data.get("photo")),
             )
             for hazard_text in step_data.get("hazards", []):
                 step.hazards.append(models.Hazard(hazard=hazard_text))

@@ -1,3 +1,5 @@
+import '../App.css'
+
 export default function AnalysisInformation(props) {
     const updateMetadata = (field, value) => {
         props.setMetadata({
@@ -29,7 +31,7 @@ export default function AnalysisInformation(props) {
                     }}
                 >
                     <div>
-                        <label>Acme Widgets, Inc. (Location)</label>
+                        <label className="required">Acme Widgets, Inc. (Location)</label>
                         <input
                             type="text"
                             placeholder="Choose or type a location"
@@ -44,7 +46,7 @@ export default function AnalysisInformation(props) {
                         />
                     </div>
                     <div>
-                        <label>Department</label>
+                        <label className="required">Department</label>
                         <input
                             type="text"
                             placeholder="Click to enter text"
@@ -59,7 +61,7 @@ export default function AnalysisInformation(props) {
                         />
                     </div>
                     <div>
-                        <label>Activity or Process</label>
+                        <label className="required">Activity or Process</label>
                         <input
                             type="text"
                             placeholder="Click to enter text"
@@ -74,7 +76,7 @@ export default function AnalysisInformation(props) {
                         />
                     </div>
                     <div>
-                        <label>Building/Room</label>
+                        <label className="required">Building/Room</label>
                         <input
                             type="text"
                             placeholder="Click to enter text"
@@ -89,7 +91,7 @@ export default function AnalysisInformation(props) {
                         />
                     </div>
                     <div>
-                        <label>Job Title</label>
+                        <label className="required">Job Title</label>
                         <input
                             type="text"
                             placeholder="Click to enter text"
@@ -104,7 +106,7 @@ export default function AnalysisInformation(props) {
                         />
                     </div>
                     <div>
-                        <label>Supervisor</label>
+                        <label className="required">Supervisor</label>
                         <input
                             type="text"
                             placeholder="Click to enter text"
@@ -119,7 +121,7 @@ export default function AnalysisInformation(props) {
                         />
                     </div>
                     <div>
-                        <label>Prepared By</label>
+                        <label className="required">Prepared By</label>
                         <input
                             type="text"
                             placeholder="Click to enter text"
@@ -134,7 +136,7 @@ export default function AnalysisInformation(props) {
                         />
                     </div>
                     <div>
-                        <label>Date</label>
+                        <label className="required">Date</label>
                         <input
                             type="date"
                             value={props.metadata.date}

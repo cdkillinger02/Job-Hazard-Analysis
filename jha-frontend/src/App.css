@@ -39,6 +39,12 @@
   }
 }
 
+label.required::after {
+  content: " *"; /* Adds a space and the asterisk after the label */
+  color: red;    /* Colors the asterisk red */
+  margin-left: 2px; /* Optional: adjust spacing */
+}
+
 .breadcrumbs {
   position: absolute;
   top: 20px;
