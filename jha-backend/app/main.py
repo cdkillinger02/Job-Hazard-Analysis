@@ -4,12 +4,21 @@ from app import models, schemas, crud
 from app.database import engine, SessionLocal
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi import UploadFile, File
+from fastapi.responses import FileResponse
+import os, uuid
+import os
 import json
 
 # Create tables
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="JHA API")
+
+os.makedirs("uploads", exist_ok=True)
+
+app.mount("/api/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 app.add_middleware(
     CORSMiddleware,
@@ -86,6 +95,7 @@ def get_jha(jha_id: int, db: Session = Depends(get_db)):
                 "id": step.id,
                 "task": step.task,
                 "photo": step.photo,
+                "photoBase64Encoded": crud.getBase64EncodedImage('http://127.0.0.1:8000/api/uploads/'+step.photo, step.photo),
                 "hazards": [h.hazard for h in step.hazards],
                 "controls": [c.control for c in step.controls],
             }
@@ -122,7 +132,7 @@ def update_jha(jha_id: int, jha_data: dict, db: Session = Depends(get_db)):
             step = models.Step(
                 task=step_data.get("task"),
                 step_order=step_data.get("step_order", 0),
-                photo=json.dumps(step_data.get("photo")),
+                photo=step_data.get("photo"),
             )
             for hazard_text in step_data.get("hazards", []):
                 step.hazards.append(models.Hazard(hazard=hazard_text))
@@ -157,3 +167,20 @@ def delete_jha(jha_id: int, db: Session = Depends(get_db)):
     db.delete(jha)  # This also deletes steps, hazards, and controls if cascade="all, delete-orphan" is set
     db.commit()
     return {"detail": "JHA deleted successfully"}
+
+@app.post("/api/uploadPhoto")
+async def upload_photo(file: UploadFile = File(...)):
+    os.makedirs("uploads", exist_ok=True)
+
+    filename = f"{uuid.uuid4()}_{file.filename}"
+    file_path = os.path.join("uploads", filename)
+
+    with open(file_path, "wb") as f:
+        f.write(await file.read())
+
+    return {"filename": filename}
+
+@app.get("/api/photo/{filename}")
+async def get_photo(filename: str):
+    file_path = os.path.join("uploads", filename)
+    return FileResponse(file_path)

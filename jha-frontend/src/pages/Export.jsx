@@ -4,6 +4,7 @@ import {
     Text,
     View,
     StyleSheet,
+    Image
 } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
@@ -254,7 +255,12 @@ export default function Export({ metadata, steps }) {
                                 </View>
 
                                 <View style={[styles.tableCol, { justifyContent: "center", alignItems: "center" }]}>
-                                    <View style={styles.photoPlaceholder} />
+                                        {step.photo && (
+                                            <Image
+                                                src={step.photoBase64Encoded}
+                                                style={{ width: 120, height: 120 }}
+                                            />
+                                        )}
                                 </View>
                             </View>
                         ))

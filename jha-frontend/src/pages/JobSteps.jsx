@@ -32,12 +32,23 @@ export default function JobSteps(props) {
         props.setSteps(props.steps.filter((_, i) => i !== index));
     };
 
-    const handleFileChange = (e, stepIndex) => {
+    const handleFileChange = async (e, stepIndex) => {
         const file = e.target.files[0];
-        if (file) {
-            setPhotoFile(prev => ({ ...prev, [stepIndex]: file }));
-            setPhotoPreviewUrl(prev => ({ ...prev, [stepIndex]: URL.createObjectURL(file) }));
-            updateStepField(stepIndex, "photo", file);
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+            const res = await fetch("http://127.0.0.1:8000/api/uploadPhoto", {
+                method: "POST",
+                body: formData,
+            });
+            const data = await res.json();
+            updateStepField(stepIndex, "photo", data.filename);
+
+        } catch (err) {
+            console.error("Upload failed", err);
         }
     };
 
@@ -173,26 +184,25 @@ export default function JobSteps(props) {
                                 </td>
 
                                 <td>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        onChange={(e) => handleFileChange(e, stepIndex)}
-                                        style={{
-                                            width: "100%",
-                                            borderRadius: "6px",
-                                            border: "1px solid #ccc",
-                                        }}
-                                        disabled={props.view}
-                                    />
+                                    {!props.view &&
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => handleFileChange(e, stepIndex)}
+                                            style={{
+                                                width: "100%",
+                                                borderRadius: "6px",
+                                                border: "1px solid #ccc",
+                                            }}
+                                            disabled={props.view}
+                                        />
+                                    }
                                     {step && step.photo && (
                                         <img
-                                            src={`http://127.0.0.1:8000/uploads/${step.photo}`}
+                                            src={`http://127.0.0.1:8000/api/uploads/${step.photo}`}
                                             alt="Uploaded preview"
                                             style={{ marginTop: '10px', maxWidth: '200px', borderRadius: '6px' }}
                                         />
-                                    )}
-                                    {photoPreviewUrl && photoPreviewUrl[stepIndex] && (
-                                        <img src={photoPreviewUrl[stepIndex]} alt="Uploaded preview" style={{ marginTop: '10px', maxWidth: '200px', borderRadius: '6px' }} />
                                     )}
                                 </td>
                             </tr>

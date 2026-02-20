@@ -64,6 +64,7 @@ export default function JHAView(props) {
                         hazards: step.hazards,
                         controls: step.controls,
                         photo: step.photo,
+                        photoBase64Encoded: step.photoBase64Encoded ?? null
                     })) : []
                 );
                 setIsLoading(false);

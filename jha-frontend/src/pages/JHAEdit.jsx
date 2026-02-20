@@ -94,7 +94,7 @@ export default function JHAEdit(props) {
                 task: step.task,
                 hazards: step.hazards.filter(h => h.trim() !== ""),
                 controls: step.controls.filter(c => c.trim() !== ""),
-                photo: step.photo ? step.photo.name : null,
+                photo: step.photo ?? null,
             })),
             requiredTraining: metadata.requiredTraining.filter(t => t.trim() !== ""),
             requiredPPE: metadata.requiredPPE.filter(p => p.trim() !== ""),
