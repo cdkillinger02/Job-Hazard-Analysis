@@ -55,15 +55,7 @@ export default function JobSteps(props) {
 
     return (
         <>
-            <div
-                style={{
-                    borderRadius: "8px",
-                    padding: "16px",
-                    marginBottom: "16px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                    backgroundColor: "#fff",
-                }}
-            >
+            <div className='modal'>
                 <h2>Job Steps</h2>
                 <table border="1" cellPadding="10" width="100%" style={{ marginBottom: "20px", textAlign: "center" }}>
                     <thead>

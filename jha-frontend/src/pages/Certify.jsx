@@ -67,7 +67,7 @@ export default function Certify(props) {
     };
 
     return (
-        <div style={{ borderRadius: "8px", padding: "16px", marginBottom: "16px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)", backgroundColor: "#fff" }}>
+        <div className='modal'>
             <h2>Certify Analysis</h2>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", padding: "0 20px" }}>
@@ -80,14 +80,18 @@ export default function Certify(props) {
                             placeholder="Click to add required training."
                             value={item}
                             onChange={(e) => handleTrainingChange(index, e.target.value)}
-                            style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                            className='certify-input'
                             disabled={props.view}
                         />
                     ))}
                     {!props.view &&
                         <div style={{ display: "flex", justifyContent: "space-evenly", marginTop: "10px" }}>
-                            <button type="button" onClick={addTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>+ Add Training</button>
-                            <button type="button" onClick={removeTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>- Remove Training</button>
+                            <button type="button" onClick={addTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>
+                                + Add Training
+                            </button>
+                            <button type="button" onClick={removeTraining} style={{ borderRadius: "6px", border: "1px solid #ccc" }}>
+                                - Remove Training
+                            </button>
                         </div>
                     }
                 </div>
@@ -108,7 +112,7 @@ export default function Certify(props) {
                             placeholder={`Click to add ${field.placeholder}.`}
                             value={ppe[field.name]}
                             onChange={handlePPEChange}
-                            style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                            className='certify-input'
                             disabled={props.view}
                         />
                     ))}
@@ -131,7 +135,7 @@ export default function Certify(props) {
                         placeholder="Click to enter text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                        className='certify-input'
                         disabled={props.view}
                     />
                 </div>
@@ -141,7 +145,7 @@ export default function Certify(props) {
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        style={{ width: "100%", padding: "10px", borderRadius: "6px", border: "1px solid #ccc" }}
+                        className='certify-input'
                         disabled={props.view}
                     />
                 </div>

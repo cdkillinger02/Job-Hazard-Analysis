@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Text, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from app.database import Base
 
+
 class JobHazardAnalysis(Base):
     __tablename__ = "JobHazardAnalysis"
     id = Column(Integer, primary_key=True, index=True)
@@ -13,11 +14,14 @@ class JobHazardAnalysis(Base):
     supervisor = Column(String)
     prepared_by = Column(String)
     date = Column(String)
-    required_training = Column(String) 
+    required_training = Column(String)
     required_ppe = Column(String)
 
     steps = relationship("Step", back_populates="jha", cascade="all, delete-orphan")
-    signatures = relationship("Signature", back_populates="jha", cascade="all, delete-orphan")
+    signatures = relationship(
+        "Signature", back_populates="jha", cascade="all, delete-orphan"
+    )
+
 
 class Step(Base):
     __tablename__ = "steps"
@@ -28,8 +32,13 @@ class Step(Base):
     photo = Column(String, nullable=True)
 
     jha = relationship("JobHazardAnalysis", back_populates="steps")
-    hazards = relationship("Hazard", back_populates="step", cascade="all, delete-orphan")
-    controls = relationship("Control", back_populates="step", cascade="all, delete-orphan")
+    hazards = relationship(
+        "Hazard", back_populates="step", cascade="all, delete-orphan"
+    )
+    controls = relationship(
+        "Control", back_populates="step", cascade="all, delete-orphan"
+    )
+
 
 class Hazard(Base):
     __tablename__ = "hazards"
@@ -38,12 +47,14 @@ class Hazard(Base):
     hazard = Column(Text)
     step = relationship("Step", back_populates="hazards")
 
+
 class Control(Base):
     __tablename__ = "controls"
     id = Column(Integer, primary_key=True, index=True)
     step_id = Column(Integer, ForeignKey("steps.id"))
     control = Column(Text)
     step = relationship("Step", back_populates="controls")
+
 
 class Signature(Base):
     __tablename__ = "signatures"

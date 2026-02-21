@@ -169,15 +169,7 @@ export default function JHAEdit(props) {
                 </nav>
             </div >
 
-            <div
-                style={{
-                    borderRadius: "8px",
-                    padding: "16px",
-                    marginBottom: "16px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                    backgroundColor: "#fff",
-                }}
-            >
+            <div className='modal'>
                 <h1>Job Hazard Analysis Wizard</h1>
             </div>
             {
