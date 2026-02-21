@@ -1,9 +1,4 @@
-import { useState } from "react";
-
 export default function JobSteps(props) {
-    const [photoFile, setPhotoFile] = useState(null);
-    const [photoPreviewUrl, setPhotoPreviewUrl] = useState(null);
-
     const updateStepField = (index, field, value) => {
         const updated = [...props.steps];
         updated[index][field] = value;

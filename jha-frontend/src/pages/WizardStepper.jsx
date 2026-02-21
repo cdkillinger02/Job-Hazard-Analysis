@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function WizardStepper({ activeStep, setActiveStep }) {
     const steps = [
         { id: 1, name: "Analysis Information" },

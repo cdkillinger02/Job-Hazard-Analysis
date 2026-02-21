@@ -72,7 +72,7 @@ export default function JHAList() {
           backgroundColor: "#fff",
         }}
       >
-        <h1>Job Hazard Analysis</h1>
+        <h1 style={{color: '#000000'}}>Job Hazard Analysis</h1>
       </div>
 
       <div
@@ -113,10 +113,10 @@ export default function JHAList() {
         <table className="rounded-table" cellPadding="10" border="1">
           <thead style={{ backgroundColor: "#d4d3d4" }}>
             <tr>
-              <th>Job Title</th>
-              <th>Prepared By</th>
-              <th>Steps</th>
-              <th>Actions</th>
+              <th style={{color: '#000000'}} >Job Title</th>
+              <th style={{color: '#000000'}}>Prepared By</th>
+              <th style={{color: '#000000'}}>Steps</th>
+              <th style={{color: '#000000'}}>Actions</th>
             </tr>
           </thead>
           <tbody style={{ backgroundColor: "#f4f4f4" }}>
