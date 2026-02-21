@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         borderTopWidth: 0,
         padding: 4,
         fontSize: 9,
-        color: "#999",
+        color: "#000000",
     },
     acknowledgementText: {
         fontStyle: "italic",
@@ -279,36 +279,21 @@ export default function Export({ metadata, steps }) {
                         <View style={[styles.tableCol, { width: "50%" }]}>
                             {(metadata.requiredTraining && metadata.requiredTraining.length > 0) ? (
                                 metadata.requiredTraining.map((item, idx) => (
-                                    <Text key={idx} style={{ fontSize: 8, color: "#999", marginBottom: 2 }}>
+                                    <Text key={idx} style={{ fontSize: 8, color: "#000000", marginBottom: 2 }}>
                                         {item}
                                     </Text>
                                 ))
-                            ) : (
-                                <>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add required training.</Text>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add required training.</Text>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add required training.</Text>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add required training.</Text>
-                                </>
-                            )}
+                            ) : null}
                         </View>
 
                         <View style={[styles.tableCol, { width: "50%" }]}>
                             {(metadata.requiredPPE && metadata.requiredPPE.length > 0) ? (
                                 metadata.requiredPPE.map((item, idx) => (
-                                    <Text key={idx} style={{ fontSize: 8, color: "#999", marginBottom: 2 }}>
+                                    <Text key={idx} style={{ fontSize: 8, color: "#000000", marginBottom: 2 }}>
                                         {item}
                                     </Text>
                                 ))
-                            ) : (
-                                <>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add eye and face protection.</Text>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add head protection.</Text>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add body (foot, leg, hand, or arm) protection.</Text>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add hearing protection.</Text>
-                                    <Text style={{ fontSize: 8, color: "#bbb" }}>Click to add respiratory protection.</Text>
-                                </>
-                            )}
+                            ) : null}
                         </View>
                     </View>
                 </View>

@@ -91,12 +91,7 @@ export default function JHAList() {
           </Link>
         </div>
 
-        <table
-          border="1"
-          cellPadding="10"
-          width="100%"
-          style={{ borderCollapse: "collapse", textAlign: "center", borderRadius: "4px", padding: "16px", marginBottom: "16px" }}
-        >
+        <table className="rounded-table" cellPadding="10" border="1">
           <thead style={{ backgroundColor: "#d4d3d4" }}>
             <tr>
               <th>Job Title</th>
