@@ -76,7 +76,7 @@ export default function JHAView(props) {
         <>
             <div className="top-bar">
                 <nav className="breadcrumbs"><span
-                    style={{ color: "#2563eb", cursor: "pointer" }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => navigate("/")}
                 >
                     Home &gt;

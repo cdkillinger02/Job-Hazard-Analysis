@@ -65,3 +65,6 @@ Open your browser and visit:
 ## CORS Configuration
 CORS is enabled for all origins:
 - allow_origins=["*"]
+
+## View API Endpoints
+- http://127.0.0.1:8000/docs#/default

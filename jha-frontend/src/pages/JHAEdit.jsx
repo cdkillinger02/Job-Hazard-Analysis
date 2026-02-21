@@ -159,7 +159,7 @@ export default function JHAEdit(props) {
         <>
             <div className="top-bar">
                 <nav className="breadcrumbs"><span
-                    style={{ color: "#2563eb", cursor: "pointer" }}
+                    style={{ cursor: "pointer" }}
                     onClick={() => navigate("/")}
                 >
                     Home &gt;
