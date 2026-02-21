@@ -74,17 +74,15 @@ export default function JHAView(props) {
 
     return (
         <>
-            <div>
-                <nav className="breadcrumbs">
-                    <span
-                        style={{ color: "#2563eb", cursor: "pointer" }}
-                        onClick={() => navigate("/")}
-                    >
-                        Home &gt;
-                    </span>{" "}
-                    <span>Job Hazard Analysis Wizard</span>
-                </nav>
-            </div >
+            <div className="top-bar">
+                <nav className="breadcrumbs"><span
+                    style={{ color: "#2563eb", cursor: "pointer" }}
+                    onClick={() => navigate("/")}
+                >
+                    Home &gt;
+                </span>{" "}<span>Job Hazard Analysis Wizard</span></nav>
+                <div className="title">Acme Widgets Inc.</div>
+            </div>
 
             <div className='modal'>
                 <h1>Job Hazard Analysis Wizard</h1>
@@ -103,7 +101,7 @@ export default function JHAView(props) {
                         <footer>
                             <button type="button" style={{ margin: '6px' }} onClick={() => navigate("/")}>Return</button>
                             <button type="button" style={{ margin: '6px' }} onClick={handleExport}>
-                                Export
+                                Export PDF
                             </button>
                         </footer>
                     </>

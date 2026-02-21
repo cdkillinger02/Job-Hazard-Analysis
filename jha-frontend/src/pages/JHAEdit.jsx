@@ -157,17 +157,15 @@ export default function JHAEdit(props) {
 
     return (
         <>
-            <div>
-                <nav className="breadcrumbs">
-                    <span
-                        style={{ color: "#2563eb", cursor: "pointer" }}
-                        onClick={() => navigate("/")}
-                    >
-                        Home &gt;
-                    </span>{" "}
-                    <span>Job Hazard Analysis Wizard</span>
-                </nav>
-            </div >
+            <div className="top-bar">
+                <nav className="breadcrumbs"><span
+                    style={{ color: "#2563eb", cursor: "pointer" }}
+                    onClick={() => navigate("/")}
+                >
+                    Home &gt;
+                </span>{" "}<span>Job Hazard Analysis Wizard</span></nav>
+                <div className="title">Acme Widgets Inc.</div>
+            </div>
 
             <div className='modal'>
                 <h1>Job Hazard Analysis Wizard</h1>

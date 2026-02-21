@@ -29,8 +29,7 @@ export default function JHAList() {
         let search = searchValue?.toLowerCase();
         return (
           jha.jobTitle?.toLowerCase().includes(search) ||
-          jha.preparedBy?.toLowerCase().includes(search) ||
-          jha.steps?.includes(search)
+          jha.preparedBy?.toLowerCase().includes(search)
         );
       })
     );
@@ -50,9 +49,6 @@ export default function JHAList() {
     }
   };
 
-  const indexOfLast = currentPage * rowsPerPage;
-  const indexOfFirst = indexOfLast - rowsPerPage;
-  const currentJHAs = jhas.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(jhas.length / rowsPerPage);
 
   const goToPage = (page) => {
@@ -62,12 +58,9 @@ export default function JHAList() {
 
   return (
     <>
-      <div>
-        <nav className="breadcrumbs">
-          <span style={{ color: "#2563eb", cursor: "pointer" }} onClick={() => navigate("/")}>
-            Home &gt;
-          </span>
-        </nav>
+      <div className="top-bar">
+        <nav className="breadcrumbs">Home &gt;</nav>
+        <div className="title">Acme Widgets Inc.</div>
       </div>
 
       <div
@@ -97,7 +90,7 @@ export default function JHAList() {
               style={{
                 backgroundColor: "#7eb8fa",
                 color: "#fff",
-                border: "1px solid #ccc",
+                border: "1px solid #000000",
                 borderRadius: "6px",
                 cursor: "pointer",
               }}
@@ -114,7 +107,6 @@ export default function JHAList() {
             placeholder="Search..."
             onChange={(e) => setSearchValue(e.target.value)}
             className='form-input'
-            border='1'
           />
         </div>
 
@@ -127,7 +119,7 @@ export default function JHAList() {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{ backgroundColor: "#f4f4f4" }}>
             {filteredValues.length === 0 ? (
               <tr>
                 <td colSpan="4" style={{ textAlign: "center", padding: "20px" }}>
@@ -142,12 +134,12 @@ export default function JHAList() {
                   <td>{jha.steps?.length || 0}</td>
                   <td>
                     <Link to={`/jha/${jha.id}/edit`}>
-                      <button style={{ marginRight: "10px" }}>Edit</button>
+                      <button style={{ marginRight: "10px", border: "1px solid #000000", }}>Edit</button>
                     </Link>
                     <Link to={`/jha/${jha.id}/view`}>
-                      <button style={{ marginRight: "10px" }}>View</button>
+                      <button style={{ marginRight: "10px", border: "1px solid #000000", }}>View</button>
                     </Link>
-                    <button onClick={() => handleDelete(jha.id)} style={{ backgroundColor: "#eb8c8c", color: "#fff" }}>
+                    <button onClick={() => handleDelete(jha.id)} style={{ backgroundColor: "#eb8c8c", color: "#fff", border: "1px solid #000000", }}>
                       Delete
                     </button>
                   </td>
