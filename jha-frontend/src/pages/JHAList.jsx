@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 export default function JHAList() {
   const [jhas, setJhas] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchValue, setSearchValue] = useState('');
+  const [filteredValues, setFilteredValues] = useState([]);
   const [rowsPerPage] = useState(5);
 
   useEffect(() => {
@@ -13,12 +15,26 @@ export default function JHAList() {
         if (!res.ok) throw new Error("Failed to fetch JHAs");
         const data = await res.json();
         setJhas(data);
+        setFilteredValues(data);
       } catch (err) {
         console.error("Error fetching JHAs:", err);
       }
     };
     fetchJHAs();
   }, []);
+
+  useEffect(() => {
+    setFilteredValues(
+      jhas.filter((jha) => {
+        let search = searchValue?.toLowerCase();
+        return (
+          jha.jobTitle?.toLowerCase().includes(search) ||
+          jha.preparedBy?.toLowerCase().includes(search) ||
+          jha.steps?.includes(search)
+        );
+      })
+    );
+  }, [searchValue, jhas])
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this Analysis?")) return;
@@ -91,6 +107,17 @@ export default function JHAList() {
           </Link>
         </div>
 
+        <div style={{ width: '25%', paddingBottom: '12px' }}>
+          <input
+            type="text"
+            value={searchValue}
+            placeholder="Search..."
+            onChange={(e) => setSearchValue(e.target.value)}
+            className='form-input'
+            border='1'
+          />
+        </div>
+
         <table className="rounded-table" cellPadding="10" border="1">
           <thead style={{ backgroundColor: "#d4d3d4" }}>
             <tr>
@@ -101,14 +128,14 @@ export default function JHAList() {
             </tr>
           </thead>
           <tbody>
-            {currentJHAs.length === 0 ? (
+            {filteredValues.length === 0 ? (
               <tr>
                 <td colSpan="4" style={{ textAlign: "center", padding: "20px" }}>
                   No Job Hazard Analysis found.
                 </td>
               </tr>
             ) : (
-              currentJHAs.map((jha) => (
+              filteredValues.map((jha) => (
                 <tr key={jha.id}>
                   <td>{jha.jobTitle}</td>
                   <td>{jha.preparedBy}</td>

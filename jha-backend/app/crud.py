@@ -55,8 +55,11 @@ def get_all_jhas(db: Session):
 def getBase64EncodedImage(url, name):
     if name is None or name == "" or name == "null":
         return ""
-    response = requests.get(url)
-    response.raise_for_status()
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+    except Exception:
+        return ''
 
     encoded_image = base64.b64encode(response.content)
 
